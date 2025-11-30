@@ -60,62 +60,22 @@ const stacks = [
   }
 ];
 
-// Cold Start Fallback Hierarchy
-const coldStartSteps = [
-  {
-    step: 1,
-    name: "Check CF Availability",
-    question: "Does user have rating history?",
-    yesAction: "Use full hybrid (CF weight 25%)",
-    noAction: "Proceed to fallback",
-    icon: "👤",
-    color: "bg-blue-500"
-  },
-  {
-    step: 2,
-    name: "Content-Based Matching",
-    question: "Can we match movie metadata?",
-    yesAction: "Boost content weight to 35%",
-    noAction: "Proceed to themes",
-    icon: "📝",
-    color: "bg-green-500"
-  },
-  {
-    step: 3,
-    name: "Theme Analysis",
-    question: "Does movie have LDA topics?",
-    yesAction: "Boost theme weight to 25%",
-    noAction: "Proceed to sentiment",
-    icon: "📊",
-    color: "bg-purple-500"
-  },
-  {
-    step: 4,
-    name: "Sentiment Matching",
-    question: "Does movie have BERT emotions?",
-    yesAction: "Boost sentiment weight to 25%",
-    noAction: "Proceed to tags",
-    icon: "❤️",
-    color: "bg-pink-500"
-  },
-  {
-    step: 5,
-    name: "Zero-Shot Tags",
-    question: "Does movie have semantic tags?",
-    yesAction: "Boost tags weight to 30%",
-    noAction: "Use popularity fallback",
-    icon: "🏷️",
-    color: "bg-indigo-500"
-  },
-  {
-    step: 6,
-    name: "Popularity Fallback",
-    question: "Final safety net",
-    yesAction: "Return popular movies in matching genres",
-    noAction: "Return global popular movies",
-    icon: "⭐",
-    color: "bg-yellow-500"
-  }
+// Current: Query-Based Foundation (works for everyone)
+const queryFoundation = [
+  { signal: "NLP Query Parsing", desc: "Understands intent, mood, context from natural language", icon: "💬", active: true },
+  { signal: "Content Matching", desc: "TF-IDF, metadata, genre similarity", icon: "📝", active: true },
+  { signal: "Theme Analysis", desc: "15 LDA topics from review corpus", icon: "📊", active: true },
+  { signal: "Sentiment Signals", desc: "BERT 7-emotion classification", icon: "❤️", active: true },
+  { signal: "Zero-Shot Tags", desc: "322 semantic labels via BART", icon: "🏷️", active: true },
+  { signal: "CF Quality Scores", desc: "Movie-level ratings (not personalized yet)", icon: "⭐", active: true }
+];
+
+// Future: Personalization Layer (user profiles)
+const futurePersonalization = [
+  { feature: "User Profiles", desc: "Local storage of preferences and history", status: "Shell built" },
+  { feature: "Behavior Learning", desc: "Track interactions to refine recommendations", status: "Planned" },
+  { feature: "Personalized CF", desc: "SVD+NeuMF predictions tailored to individual users", status: "Planned" },
+  { feature: "Watchlist Sync", desc: "Save and organize movies across sessions", status: "Planned" }
 ];
 
 export function InteractiveArchitectureSection() {
@@ -191,21 +151,24 @@ export function InteractiveArchitectureSection() {
           </div>
         </motion.div>
 
-        {/* Cold Start Section */}
+        {/* Query-Based Architecture Section */}
         <ClickableCard onClick={() => setShowColdStartModal(true)} className="glass rounded-xl p-8">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-semibold text-yellow-400 mb-2">Cold Start Fallback System</h3>
-              <p className="text-zinc-400 text-sm">6-step graceful degradation for new users and sparse data</p>
+              <h3 className="text-xl font-semibold text-green-400 mb-2">Query-Based Architecture</h3>
+              <p className="text-zinc-400 text-sm">Intelligent recommendations for everyone - no profile required</p>
             </div>
-            <div className="text-4xl">❄️</div>
+            <div className="text-4xl">🚀</div>
           </div>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {coldStartSteps.map((step) => (
-              <span key={step.step} className={`px-3 py-1 ${step.color}/20 text-white rounded-full text-sm`}>
-                {step.name}
-              </span>
-            ))}
+          <div className="mt-6">
+            <div className="text-xs text-zinc-500 uppercase tracking-wide mb-2">Active Today</div>
+            <div className="flex flex-wrap gap-2">
+              {queryFoundation.map((item) => (
+                <span key={item.signal} className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm flex items-center gap-1">
+                  <span>{item.icon}</span> {item.signal}
+                </span>
+              ))}
+            </div>
           </div>
         </ClickableCard>
 
@@ -238,73 +201,79 @@ export function InteractiveArchitectureSection() {
           )}
         </Modal>
 
-        {/* Cold Start Modal */}
+        {/* Query-Based Architecture Modal */}
         <Modal
           isOpen={showColdStartModal}
           onClose={() => { setShowColdStartModal(false); setActiveStep(null); }}
-          title="Cold Start Fallback Hierarchy"
+          title="Query-Based Architecture"
         >
           <div className="space-y-6">
-            <p className="text-zinc-400 text-sm">
-              When collaborative filtering is unavailable (new users), the system gracefully falls back
-              through content-based signals. Click each step to see details:
-            </p>
-
-            <div className="space-y-3">
-              {coldStartSteps.map((step) => (
-                <div key={step.step}>
-                  <motion.button
-                    onClick={() => setActiveStep(activeStep === step.step ? null : step.step)}
-                    className={`w-full p-4 rounded-lg ${step.color} text-left flex items-center gap-4`}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
+            {/* Current Foundation */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                <h5 className="text-sm font-semibold text-green-400 uppercase tracking-wide">Active Today</h5>
+              </div>
+              <p className="text-zinc-400 text-sm mb-4">
+                The NLP + Six-Signal system delivers intelligent recommendations for every user,
+                no account or rating history required:
+              </p>
+              <div className="space-y-2">
+                {queryFoundation.map((item, i) => (
+                  <motion.div
+                    key={item.signal}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="flex items-center gap-3 p-3 bg-zinc-800/50 rounded-lg"
                   >
-                    <div className="text-2xl">{step.icon}</div>
+                    <span className="text-xl">{item.icon}</span>
                     <div className="flex-1">
-                      <div className="font-semibold text-white">Step {step.step}: {step.name}</div>
-                      <div className="text-white/70 text-sm">{step.question}</div>
+                      <div className="text-zinc-200 text-sm font-medium">{item.signal}</div>
+                      <div className="text-zinc-500 text-xs">{item.desc}</div>
                     </div>
-                    <svg
-                      className={`w-5 h-5 text-white transition-transform ${activeStep === step.step ? "rotate-180" : ""}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </motion.button>
-
-                  <AnimatePresence>
-                    {activeStep === step.step && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="p-4 bg-zinc-800/50 rounded-b-lg space-y-3">
-                          <div className="flex items-start gap-2">
-                            <span className="text-green-400 text-sm font-semibold">YES:</span>
-                            <span className="text-zinc-300 text-sm">{step.yesAction}</span>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <span className="text-red-400 text-sm font-semibold">NO:</span>
-                            <span className="text-zinc-300 text-sm">{step.noAction}</span>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
+                    <span className="text-green-400 text-xs">Active</span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
-            <div className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-              <h5 className="text-sm font-semibold text-yellow-400 mb-2">Why This Matters</h5>
+            {/* Future Personalization */}
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-3 h-3 bg-indigo-500 rounded-full" />
+                <h5 className="text-sm font-semibold text-indigo-400 uppercase tracking-wide">Future Enhancement</h5>
+              </div>
+              <p className="text-zinc-400 text-sm mb-4">
+                User profile shell is built. Future updates will add personalization on top of the query-based foundation:
+              </p>
+              <div className="space-y-2">
+                {futurePersonalization.map((item, i) => (
+                  <motion.div
+                    key={item.feature}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + i * 0.05 }}
+                    className="flex items-center gap-3 p-3 bg-zinc-800/30 rounded-lg border border-zinc-700/50"
+                  >
+                    <div className="flex-1">
+                      <div className="text-zinc-300 text-sm font-medium">{item.feature}</div>
+                      <div className="text-zinc-500 text-xs">{item.desc}</div>
+                    </div>
+                    <span className={`text-xs px-2 py-1 rounded ${item.status === "Shell built" ? "bg-indigo-500/20 text-indigo-400" : "bg-zinc-700 text-zinc-400"}`}>
+                      {item.status}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+              <h5 className="text-sm font-semibold text-green-400 mb-2">Why This Works</h5>
               <p className="text-zinc-400 text-sm">
-                Unlike traditional CF systems that fail completely for new users, Kineto provides
-                intelligent recommendations from day one using content signals. As users rate movies,
-                CF gradually takes over with better personalization.
+                Unlike traditional recommenders that require extensive user history, Kineto delivers
+                great results from the first query. The NLP understands what you want right now -
+                user profiles will enhance this, not replace it.
               </p>
             </div>
           </div>
