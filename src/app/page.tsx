@@ -3,11 +3,15 @@
 import { motion } from "framer-motion";
 import ScrollSection from "@/components/ScrollSection";
 import Navigation from "@/components/Navigation";
-import { VisionSection, CFSection, ContentSection, NLPSection, HybridSection } from "@/components/sections";
-import { ArchitectureSection, DemoSection, BusinessSection, FinancialsSection, RoadmapSection } from "@/components/sections/more";
+import { VisionSection, CFSection } from "@/components/sections";
+import { DemoSection, BusinessSection, FinancialsSection, RoadmapSection } from "@/components/sections/more";
 import { InteractiveTeamSection } from "@/components/sections/InteractiveTeam";
 import { InteractiveDataSection } from "@/components/sections/InteractiveData";
 import { InteractivePerformanceSection } from "@/components/sections/InteractivePerformance";
+import { InteractiveContentSection } from "@/components/sections/InteractiveContent";
+import { InteractiveNLPSection } from "@/components/sections/InteractiveNLP";
+import { InteractiveHybridSection } from "@/components/sections/InteractiveHybrid";
+import { InteractiveArchitectureSection } from "@/components/sections/InteractiveArchitecture";
 
 export default function Home() {
   return (
@@ -63,10 +67,10 @@ export default function Home() {
         <VisionSection />
         <InteractiveDataSection />
         <CFSection />
-        <ContentSection />
-        <NLPSection />
-        <HybridSection />
-        <ArchitectureSection />
+        <InteractiveContentSection />
+        <InteractiveNLPSection />
+        <InteractiveHybridSection />
+        <InteractiveArchitectureSection />
         <DemoSection />
         <InteractivePerformanceSection />
         <BusinessSection />
