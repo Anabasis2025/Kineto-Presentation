@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import ScrollSection from "@/components/ScrollSection";
 import Navigation from "@/components/Navigation";
-import { VisionSection, DataSection, CFSection, ContentSection, NLPSection, HybridSection } from "@/components/sections";
-import { ArchitectureSection, DemoSection, PerformanceSection, BusinessSection, FinancialsSection, RoadmapSection } from "@/components/sections/more";
+import { VisionSection, CFSection, ContentSection, NLPSection, HybridSection } from "@/components/sections";
+import { ArchitectureSection, DemoSection, BusinessSection, FinancialsSection, RoadmapSection } from "@/components/sections/more";
+import { InteractiveTeamSection } from "@/components/sections/InteractiveTeam";
+import { InteractiveDataSection } from "@/components/sections/InteractiveData";
+import { InteractivePerformanceSection } from "@/components/sections/InteractivePerformance";
 
 export default function Home() {
   return (
@@ -37,29 +40,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* TEAM */}
-        <ScrollSection id="team" className="bg-zinc-950">
-          <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">The Team</h2>
-            <p className="text-xl text-zinc-400 mb-12">Northwestern University MSDS Candidates</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-              {[
-                { name: "Ally Stills", role: "NLP & Query Parsing", focus: "SpaCy NER, Situation/Outcome" },
-                { name: "Kyle Krug", role: "System Architecture", focus: "Hybrid Engine, Deployment" },
-                { name: "Niki Lazaris", role: "Data Engineering", focus: "ETL Pipeline, Processing" },
-                { name: "Patrick Steed", role: "ML Models", focus: "SVD, NeuMF, CF" },
-                { name: "Satvik Vagnamurthy", role: "Content Analysis", focus: "LDA, BERT, Zero-Shot" },
-              ].map((member, i) => (
-                <motion.div key={member.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }} className="glass rounded-xl p-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-2xl font-bold">{member.name.split(" ").map(n => n[0]).join("")}</div>
-                  <h3 className="text-lg font-semibold text-white mb-1">{member.name}</h3>
-                  <p className="text-indigo-400 text-sm mb-2">{member.role}</p>
-                  <p className="text-zinc-500 text-xs">{member.focus}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </ScrollSection>
+        <InteractiveTeamSection />
 
         {/* PROBLEM */}
         <ScrollSection id="problem" className="bg-zinc-900">
@@ -80,14 +61,14 @@ export default function Home() {
         </ScrollSection>
 
         <VisionSection />
-        <DataSection />
+        <InteractiveDataSection />
         <CFSection />
         <ContentSection />
         <NLPSection />
         <HybridSection />
         <ArchitectureSection />
         <DemoSection />
-        <PerformanceSection />
+        <InteractivePerformanceSection />
         <BusinessSection />
         <FinancialsSection />
         <RoadmapSection />
