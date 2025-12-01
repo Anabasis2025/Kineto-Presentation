@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import ScrollSection from "@/components/ScrollSection";
 import Navigation from "@/components/Navigation";
 import Particles from "@/components/Particles";
+import Typewriter from "@/components/Typewriter";
 import { VisionSection, CFSection } from "@/components/sections";
 import { DemoSection, BusinessSection, FinancialsSection, RoadmapSection } from "@/components/sections/more";
 import { InteractiveTeamSection } from "@/components/sections/InteractiveTeam";
@@ -25,7 +26,9 @@ export default function Home() {
           <Particles count={60} />
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="text-center z-10 px-4">
             <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="mb-8">
-              <h1 className="text-7xl md:text-9xl font-bold gradient-text mb-4">Kineto</h1>
+              <h1 className="text-7xl md:text-9xl font-bold gradient-text mb-4">
+                <Typewriter text="Kineto" delay={120} />
+              </h1>
               <p className="text-2xl md:text-3xl text-zinc-400 font-light">AI-Powered Movie Recommendations</p>
             </motion.div>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.8 }} className="space-y-4">
