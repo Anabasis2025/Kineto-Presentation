@@ -233,38 +233,38 @@ export function FinancialsSection() {
               </tr>
               <tr className="border-b border-zinc-800">
                 <td className="py-3 text-white">Revenue ($K)</td>
-                <td className="py-3 text-right text-green-400">$12</td>
-                <td className="py-3 text-right text-green-400">$120</td>
-                <td className="py-3 text-right text-green-400">$600</td>
-                <td className="py-3 text-right text-green-400">$1,800</td>
-                <td className="py-3 text-right text-green-400">$6,000</td>
+                <td className="py-3 text-right text-green-400">$5</td>
+                <td className="py-3 text-right text-green-400">$25</td>
+                <td className="py-3 text-right text-green-400">$100</td>
+                <td className="py-3 text-right text-green-400">$500</td>
+                <td className="py-3 text-right text-green-400">$1,250</td>
               </tr>
               <tr className="border-b border-zinc-800">
                 <td className="py-3 text-white">Operating Costs ($K)</td>
-                <td className="py-3 text-right text-red-400">$50</td>
-                <td className="py-3 text-right text-red-400">$100</td>
-                <td className="py-3 text-right text-red-400">$250</td>
-                <td className="py-3 text-right text-red-400">$500</td>
-                <td className="py-3 text-right text-red-400">$1,000</td>
+                <td className="py-3 text-right text-red-400">$25</td>
+                <td className="py-3 text-right text-red-400">$34</td>
+                <td className="py-3 text-right text-red-400">$70</td>
+                <td className="py-3 text-right text-red-400">$160</td>
+                <td className="py-3 text-right text-red-400">$280</td>
               </tr>
               <tr className="border-b border-zinc-800">
                 <td className="py-3 text-white">Net Income ($K)</td>
-                <td className="py-3 text-right text-red-400">-$38</td>
-                <td className="py-3 text-right text-green-400">$20</td>
-                <td className="py-3 text-right text-green-400">$350</td>
-                <td className="py-3 text-right text-green-400">$1,300</td>
-                <td className="py-3 text-right text-green-400">$5,000</td>
+                <td className="py-3 text-right text-red-400">-$20</td>
+                <td className="py-3 text-right text-red-400">-$9</td>
+                <td className="py-3 text-right text-green-400">$30</td>
+                <td className="py-3 text-right text-green-400">$340</td>
+                <td className="py-3 text-right text-green-400">$970</td>
               </tr>
             </tbody>
           </table>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-6">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="stat-card text-center">
-            <div className="text-4xl font-bold text-green-400">Year 2</div>
+            <div className="text-4xl font-bold text-green-400">Year 3</div>
             <div className="text-sm text-zinc-400 mt-2">Break-Even Point</div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} viewport={{ once: true }} className="stat-card text-center">
-            <div className="text-4xl font-bold text-indigo-400">$6M</div>
+            <div className="text-4xl font-bold text-indigo-400">$1.25M</div>
             <div className="text-sm text-zinc-400 mt-2">Year 5 Revenue</div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} viewport={{ once: true }} className="stat-card text-center">

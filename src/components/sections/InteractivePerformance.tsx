@@ -24,24 +24,24 @@ const metrics: Metric[] = [
     details: {
       description: "Root Mean Square Error measures the average prediction error on a 1-5 rating scale. Lower is better.",
       breakdown: [
-        { component: "SVD alone", value: "0.98", note: "Surprise library" },
-        { component: "NeuMF alone", value: "0.99", note: "PyTorch" },
-        { component: "Ensemble (60/40)", value: "0.9684", note: "Best blend" }
+        { component: "SVD alone", value: "0.9865", note: "Surprise library" },
+        { component: "NeuMF alone", value: "0.9702", note: "PyTorch (sweep)" },
+        { component: "Ensemble (30/70 SVD/NeuMF)", value: "0.9684", note: "Best blend" }
       ],
       comparison: { baseline: "1.20 (naive avg)", improvement: "19.3% reduction" }
     }
   },
   {
-    value: "~500ms",
+    value: "~2.3s",
     label: "Avg Response",
     color: "text-blue-400",
     details: {
       description: "Total end-to-end latency from query submission to recommendation display.",
       breakdown: [
-        { component: "Query parsing + NER", value: "25ms" },
-        { component: "Situation/Outcome BERT", value: "65ms" },
-        { component: "Semantic expansion", value: "10ms" },
-        { component: "Score computation", value: "300ms" },
+        { component: "Query parsing + NER", value: "20ms" },
+        { component: "Situation/Outcome BERT", value: "50ms" },
+        { component: "Semantic expansion", value: "30ms" },
+        { component: "Score computation", value: "1800ms" },
         { component: "Result ranking", value: "100ms" }
       ]
     }
@@ -102,7 +102,7 @@ const modelComparison: ModelRow[] = [
   },
   {
     model: "SVD (Surprise)",
-    rmse: "0.98",
+    rmse: "0.9865",
     mae: "0.77",
     time: "~2 min",
     details: {
@@ -117,8 +117,8 @@ const modelComparison: ModelRow[] = [
   },
   {
     model: "NeuMF (PyTorch)",
-    rmse: "0.99",
-    mae: "0.78",
+    rmse: "0.9702",
+    mae: "0.76",
     time: "~15 min",
     details: {
       hyperparameters: [
@@ -131,14 +131,14 @@ const modelComparison: ModelRow[] = [
     }
   },
   {
-    model: "Ensemble (60/40)",
+    model: "Ensemble (30/70 SVD/NeuMF)",
     rmse: "0.9684",
     mae: "0.76",
     time: "-",
     details: {
       hyperparameters: [
-        { param: "SVD weight", value: "0.6" },
-        { param: "NeuMF weight", value: "0.4" },
+        { param: "SVD weight", value: "0.3" },
+        { param: "NeuMF weight", value: "0.7" },
         { param: "Blend method", value: "Weighted average" }
       ],
       notes: "Optimal blend found via grid search. Combines SVD's stability with NeuMF's expressiveness."
@@ -223,10 +223,10 @@ export function InteractivePerformanceSection() {
           <h3 className="text-xl font-semibold mb-6">Latency Breakdown (per request)</h3>
           <div className="space-y-4">
             {[
-              { component: "Query Parsing + NER", time: 25, color: "from-blue-500 to-cyan-500" },
-              { component: "Situation/Outcome BERT", time: 65, color: "from-purple-500 to-pink-500" },
-              { component: "Semantic Expansion", time: 10, color: "from-green-500 to-emerald-500" },
-              { component: "Score Computation", time: 300, color: "from-yellow-500 to-orange-500" },
+              { component: "Query Parsing + NER", time: 20, color: "from-blue-500 to-cyan-500" },
+              { component: "Situation/Outcome BERT", time: 50, color: "from-purple-500 to-pink-500" },
+              { component: "Semantic Expansion", time: 30, color: "from-green-500 to-emerald-500" },
+              { component: "Score Computation", time: 1800, color: "from-yellow-500 to-orange-500" },
               { component: "Result Ranking", time: 100, color: "from-red-500 to-pink-500" },
             ].map((item, i) => (
               <motion.div
@@ -241,7 +241,7 @@ export function InteractivePerformanceSection() {
                 <div className="flex-1 h-6 bg-zinc-800 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    whileInView={{ width: `${(item.time / 500) * 100}%` }}
+                    whileInView={{ width: `${(item.time / 2000) * 100}%` }}
                     transition={{ duration: 0.8, delay: i * 0.1 }}
                     viewport={{ once: true }}
                     className={`h-full bg-gradient-to-r ${item.color} rounded-full`}
@@ -253,7 +253,7 @@ export function InteractivePerformanceSection() {
           </div>
           <div className="mt-6 pt-4 border-t border-zinc-700 flex justify-between items-center">
             <span className="text-zinc-400">Total</span>
-            <span className="text-2xl font-bold text-green-400">~500ms</span>
+            <span className="text-2xl font-bold text-green-400">~2.3s</span>
           </div>
         </motion.div>
 
